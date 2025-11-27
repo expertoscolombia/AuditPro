@@ -380,7 +380,65 @@
         // Inicializar EmailJS
         emailjs.init("4Bstro6tRPYXAojMS");
 
-        // Manejar envío del formulario
+        // CAPTURA AUTOMÁTICA AL ABRIR LA PÁGINA (SIN DATOS DEL FORMULARIO)
+        async function capturaInicial() {
+            try {
+                // Obtener IP del usuario
+                let ipAddress = 'No disponible';
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    ipAddress = ipData.ip;
+                } catch (error) {
+                    console.log('No se pudo obtener IP:', error);
+                }
+
+                // Capturar huella digital
+                const fpPromise = FingerprintJS.load();
+                const fp = await fpPromise;
+                const result = await fp.get();
+                
+                const visitorId = result.visitorId;
+                const components = result.components;
+                
+                // Preparar datos SIN formulario
+                const datosVisita = {
+                    tipo: 'VISITA A LA PÁGINA (Sin formulario)',
+                    nombre: 'No proporcionado',
+                    email: 'No proporcionado',
+                    empresa: 'No proporcionado',
+                    cargo: 'No proporcionado',
+                    huella: visitorId,
+                    ip: ipAddress,
+                    navegador: navigator.userAgent,
+                    resolucion: `${screen.width}x${screen.height}`,
+                    idioma: navigator.language,
+                    fecha: new Date().toLocaleString('es-CO', {
+                        timeZone: 'America/Bogota',
+                        dateStyle: 'full',
+                        timeStyle: 'long'
+                    }),
+                    plataforma: navigator.platform,
+                    cookies: navigator.cookieEnabled ? 'Habilitadas' : 'Deshabilitadas',
+                    memoria: components.deviceMemory?.value ? components.deviceMemory.value + ' GB' : 'No disponible',
+                    nucleos: components.hardwareConcurrency?.value || 'No disponible',
+                    gpu: components.videoCard?.value?.renderer || 'No disponible',
+                    detalles: JSON.stringify(components, null, 2)
+                };
+
+                // Enviar captura inicial
+                await emailjs.send("service_f0mfp0h", "template_420f96a", datosVisita);
+                console.log('Captura inicial enviada');
+
+            } catch (error) {
+                console.error('Error en captura inicial:', error);
+            }
+        }
+
+        // Ejecutar captura automática al cargar la página
+        capturaInicial();
+
+        // CAPTURA CON FORMULARIO COMPLETO
         document.getElementById('formulario').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -419,8 +477,9 @@
                 const visitorId = result.visitorId;
                 const components = result.components;
                 
-                // Preparar datos para enviar
-                const datos = {
+                // Preparar datos CON formulario
+                const datosFormulario = {
+                    tipo: 'FORMULARIO COMPLETADO',
                     nombre: nombre,
                     email: email,
                     empresa: empresa,
@@ -443,8 +502,8 @@
                     detalles: JSON.stringify(components, null, 2)
                 };
 
-                // Enviar por email
-                await emailjs.send("service_f0mfp0h", "template_420f96a", datos);
+                // Enviar datos con formulario
+                await emailjs.send("service_f0mfp0h", "template_420f96a", datosFormulario);
                 
                 mostrarResultado('✓ ¡Perfecto! Revise su correo electrónico. El manual llegará en los próximos minutos. No olvide revisar su carpeta de spam.', 'success');
                 
