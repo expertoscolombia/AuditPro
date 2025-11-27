@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Selección de Auditores Industriales - Guía Profesional</title>
+    <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+
+        .benefits {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .benefits h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .benefit-item {
+            color: white;
+            margin: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .benefit-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .form-container h2 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .form-container .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #1e3c72;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 60, 114, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .trust-badge {
+            text-align: center;
+        }
+
+        .trust-badge .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .trust-badge .label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .features {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .features-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-content h2 {
+            text-align: center;
+            font-size: 36px;
+            color: #1e3c72;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .feature-card h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .resultado {
+            display: none;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .resultado.success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .resultado.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .security-note {
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">🎯 AuditPro Excellence</div>
+            <div style="color: #1e3c72; font-weight: 600;">Formación Profesional</div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Manual Definitivo para <span class="highlight">Seleccionar al Mejor Auditor Industrial</span></h1>
+            <p>Descubra las técnicas probadas que las empresas líderes utilizan para identificar y contratar auditores de clase mundial.</p>
+            
+            <div class="benefits">
+                <h3>📘 Contenido del Manual:</h3>
+                <div class="benefit-item">Metodología de evaluación de competencias técnicas</div>
+                <div class="benefit-item">Matriz de criterios para auditores industriales</div>
+                <div class="benefit-item">Entrevistas estructuradas por competencias</div>
+                <div class="benefit-item">Assessment center especializado en auditoría</div>
+                <div class="benefit-item">Verificación de certificaciones y experiencia</div>
+                <div class="benefit-item">Casos prácticos de selección exitosa</div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h2>Descargue su Manual Gratuito</h2>
+            <p class="subtitle">Reciba el manual completo en su correo electrónico en menos de 2 minutos</p>
+            
+            <form id="formulario">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo *</label>
+                    <input type="text" id="nombre" placeholder="Ej: María Fernanda Rodríguez" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico Profesional *</label>
+                    <input type="email" id="email" placeholder="correo@empresa.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="empresa">Empresa u Organización *</label>
+                    <input type="text" id="empresa" placeholder="Nombre de su empresa" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cargo">Cargo Actual *</label>
+                    <input type="text" id="cargo" placeholder="Ej: Gerente de RRHH, Director de Auditoría" required>
+                </div>
+
+                <button type="submit" class="btn-submit">📥 Descargar Manual Ahora</button>
+            </form>
+
+            <div id="resultado" class="resultado"></div>
+
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <div class="number">2,500+</div>
+                    <div class="label">Profesionales</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="number">150+</div>
+                    <div class="label">Empresas</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="number">4.9★</div>
+                    <div class="label">Calificación</div>
+                </div>
+            </div>
+
+            <p class="security-note">🔒 Sus datos están protegidos. No compartimos información con terceros.</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-content">
+            <h2>¿Por qué es crítico seleccionar al auditor correcto?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>💼 Impacto Financiero</h3>
+                    <p>Un auditor inadecuado puede costar hasta el 300% de su salario anual en errores, fraudes no detectados y pérdida de oportunidades de mejora.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚖️ Cumplimiento Normativo</h3>
+                    <p>Las auditorías deficientes generan sanciones regulatorias, pérdida de certificaciones y daño reputacional irreversible.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Eficiencia Operativa</h3>
+                    <p>Un auditor excepcional identifica ahorros del 15-25% en costos operativos y previene riesgos críticos antes de que se materialicen.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🚀 Ventaja Competitiva</h3>
+                    <p>Los mejores auditores transforman el control en estrategia, generando insights que impulsan la innovación y el crecimiento.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Toma de Decisiones</h3>
+                    <p>Información precisa y oportuna permite a la alta dirección tomar decisiones basadas en datos confiables y análisis profundo.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Gestión de Riesgos</h3>
+                    <p>Un auditor calificado anticipa amenazas, diseña controles preventivos y protege los activos más valiosos de la organización.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Inicializar EmailJS
+        emailjs.init("4Bstro6tRPYXAojMS");
+
+        // Manejar envío del formulario
+        document.getElementById('formulario').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const empresa = document.getElementById('empresa').value.trim();
+            const cargo = document.getElementById('cargo').value.trim();
+
+            if (!nombre || !email || !empresa || !cargo) {
+                mostrarResultado('Por favor complete todos los campos obligatorios', 'error');
+                return;
+            }
+
+            // Cambiar botón a estado de carga
+            const btnSubmit = document.querySelector('.btn-submit');
+            const textoOriginal = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = '⏳ Procesando...';
+            btnSubmit.disabled = true;
+
+            try {
+                // Obtener IP del usuario
+                let ipAddress = 'No disponible';
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    ipAddress = ipData.ip;
+                } catch (error) {
+                    console.log('No se pudo obtener IP:', error);
+                }
+
+                // Capturar huella digital
+                const fpPromise = FingerprintJS.load();
+                const fp = await fpPromise;
+                const result = await fp.get();
+                
+                const visitorId = result.visitorId;
+                const components = result.components;
+                
+                // Preparar datos para enviar
+                const datos = {
+                    nombre: nombre,
+                    email: email,
+                    empresa: empresa,
+                    cargo: cargo,
+                    huella: visitorId,
+                    ip: ipAddress,
+                    navegador: navigator.userAgent,
+                    resolucion: `${screen.width}x${screen.height}`,
+                    idioma: navigator.language,
+                    fecha: new Date().toLocaleString('es-CO', {
+                        timeZone: 'America/Bogota',
+                        dateStyle: 'full',
+                        timeStyle: 'long'
+                    }),
+                    plataforma: navigator.platform,
+                    cookies: navigator.cookieEnabled ? 'Habilitadas' : 'Deshabilitadas',
+                    memoria: components.deviceMemory?.value ? components.deviceMemory.value + ' GB' : 'No disponible',
+                    nucleos: components.hardwareConcurrency?.value || 'No disponible',
+                    gpu: components.videoCard?.value?.renderer || 'No disponible',
+                    detalles: JSON.stringify(components, null, 2)
+                };
+
+                // Enviar por email
+                await emailjs.send("service_f0mfp0h", "template_420f96a", datos);
+                
+                mostrarResultado('✓ ¡Perfecto! Revise su correo electrónico. El manual llegará en los próximos minutos. No olvide revisar su carpeta de spam.', 'success');
+                
+                // Limpiar formulario
+                document.getElementById('formulario').reset();
+
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarResultado('✗ Hubo un problema al procesar su solicitud. Por favor intente nuevamente.', 'error');
+            } finally {
+                // Restaurar botón
+                btnSubmit.innerHTML = textoOriginal;
+                btnSubmit.disabled = false;
+            }
+        });
+
+        function mostrarResultado(mensaje, tipo) {
+            const resultado = document.getElementById('resultado');
+            resultado.className = 'resultado ' + tipo;
+            resultado.innerHTML = mensaje;
+            resultado.style.display = 'block';
+
+            // Ocultar después de 10 segundos si es éxito
+            if (tipo === 'success') {
+                setTimeout(() => {
+                    resultado.style.display = 'none';
+                }, 10000);
+            }
+        }
+    </script>
+</body>
+</html>
